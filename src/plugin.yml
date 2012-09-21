@@ -1,0 +1,9 @@
+name: MyFurnace
+main: me.rrama.MyFurnace.MyFurnace
+version: 2.0
+description: Allows one person to access a furnace at a time..
+author: Rrama
+permissions:
+  myfurnace.override:
+    description: Has permission to view a furnace even if someone else is viewing it.
+    default: false
