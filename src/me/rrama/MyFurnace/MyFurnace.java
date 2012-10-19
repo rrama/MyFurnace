@@ -11,15 +11,14 @@ package me.rrama.MyFurnace;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.block.Furnace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.FurnaceInventory;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,11 +32,12 @@ public class MyFurnace extends JavaPlugin implements Listener {
     
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryOpenEvent(InventoryOpenEvent event) {
-        if (event.getInventory() instanceof FurnaceInventory) {
+        InventoryType IT = event.getInventory().getType();
+        if (IT == InventoryType.BREWING || IT == InventoryType.CHEST || IT == InventoryType.DISPENSER || IT == InventoryType.FURNACE) {
             if ((!event.getPlayer().hasPermission("myfurnace.override")) && event.getInventory().getViewers().size() > 1) {
                 if (event.getPlayer() instanceof Player) {
                     Player P = (Player)event.getPlayer();
-                    P.sendMessage(ChatColor.RED + "You cannot open this furnace as someone else is using it.");
+                    P.sendMessage(ChatColor.RED + "You cannot open this container block as someone else is using it.");
                 }
                 event.setCancelled(true);
             }
@@ -46,10 +46,10 @@ public class MyFurnace extends JavaPlugin implements Listener {
     
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreakEvent(BlockBreakEvent event) {
-        if (event.getBlock().getType() == Material.FURNACE) {
-            if ((!event.getPlayer().hasPermission("myfurnace.override")) && (!((Furnace)event.getBlock()).getInventory().getViewers().isEmpty())) {
+        if (event.getBlock() instanceof InventoryHolder) {
+            if ((!event.getPlayer().hasPermission("myfurnace.override")) && (!((InventoryHolder)event.getBlock()).getInventory().getViewers().isEmpty())) {
                 event.setCancelled(true);
-                event.getPlayer().sendMessage(ChatColor.RED + "You cannot break this furnace as someone is using it.");
+                event.getPlayer().sendMessage(ChatColor.RED + "You cannot break this container block as someone is using it.");
             }
         }
     }
