@@ -26,8 +26,7 @@ public class MyFurnace extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(this, this);
+        Bukkit.getPluginManager().registerEvents(this, this);
     }
     
     @EventHandler(priority = EventPriority.HIGHEST)
