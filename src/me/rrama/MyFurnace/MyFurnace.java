@@ -2,7 +2,7 @@ package me.rrama.MyFurnace;
 
 /**
  *
- * @author Ben
+ * @author rrama
  * All rights reserved to rrama.
  * No copying/stealing any part of the code (Exceptions; You are from the Bukkit team, you have written consent from rrama).
  * No copying/stealing ideas from the code (Exceptions; You are from the Bukkit team, you have written consent from rrama).
